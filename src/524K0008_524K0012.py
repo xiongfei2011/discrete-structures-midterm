@@ -2,6 +2,7 @@
 
 from task1_logic import run_task1_demo
 from task2_predicate import run_task2_demo
+from task3_rsa import run_task3_demo
 
 
 def main() -> None:
@@ -18,7 +19,7 @@ def main() -> None:
         elif choice == "2":
             run_task2_demo()
         elif choice == "3":
-            print("Task 3 has not been implemented yet.")
+            run_task3_demo()
         elif choice == "0":
             print("Goodbye.")
             break
