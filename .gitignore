@@ -8,3 +8,6 @@ __pycache__/
 # Chặn môi trường ảo (nếu có)
 venv/
 .venv/
+
+# Chặn file sceenshots
+screenshots/

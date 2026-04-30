@@ -195,16 +195,6 @@ def draw_timing_graph(timings: Sequence[Tuple[int, float, float]], path: Path = 
     return path
 
 
-def print_limitations_and_recommendations() -> None:
-    print("\nLimitations:")
-    print("- RSA has a strict plaintext-size limit, so long messages must be split or handled by hybrid encryption.")
-    print("- RSA is much slower than symmetric encryption for large data.")
-    print("- Private-key operations are slower than public-key operations.")
-    print("\nRecommendations:")
-    print("- Use OAEP padding, as implemented here with cryptography.")
-    print("- Use hybrid encryption: RSA encrypts a symmetric key, then AES encrypts the message.")
-    print("- Use at least 2048-bit keys and a maintained cryptography library.")
-
 
 def run_task3_demo() -> None:
     keypair = generate_keypair(bits=2048)
@@ -237,7 +227,6 @@ def run_task3_demo() -> None:
 
     print(f"\nTiming CSV saved to: {csv_path}")
     print(f"Timing graph saved to: {graph_path}")
-    print_limitations_and_recommendations()
 
 
 if __name__ == "__main__":
