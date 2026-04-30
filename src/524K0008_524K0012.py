@@ -1,8 +1,14 @@
 """Menu-driven interface for the Discrete Structures midterm."""
 
-from task1_logic import run_task1_demo
-from task2_predicate import run_task2_demo
-from task3_rsa import run_task3_demo
+import importlib
+
+_t1 = importlib.import_module("524K0008_524K0012_1")
+_t2 = importlib.import_module("524K0008_524K0012_2")
+_t3 = importlib.import_module("524K0008_524K0012_3")
+
+run_task1_demo = _t1.run_task1_demo
+run_task2_demo = _t2.run_task2_demo
+run_task3_demo = _t3.run_task3_demo
 
 
 def main() -> None:
