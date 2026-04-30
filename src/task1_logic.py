@@ -237,19 +237,38 @@ EQUIVALENCE_TESTCASES = [
 def run_task1_demo() -> None:
     print("TASK 1 - TRUTH TABLE")
     print("=" * 60)
+
+    # 2.4.1 Infix-to-Postfix conversion
+    print("\n--- 2.4.1 Infix-to-Postfix Conversion ---")
+    postfixes = []
     for index, infix in enumerate(TASK1_TESTCASES, start=1):
         postfix = Infix2Postfix(infix)
-        table = Postfix2Truthtable(postfix)
-        print(f"\nTestcase {index}: {infix}")
-        print(f"Postfix: {postfix}")
-        print(format_truth_table(table))
-        print(f"DNF: {GetDNF(table)}")
+        postfixes.append(postfix)
+        print(f"Testcase {index}: {infix}")
+        print(f"Postfix  : {postfix}")
+        print()
 
-    print("\nEQUIVALENCE TESTS")
-    print("=" * 60)
+    # 2.4.2 Truth Tables
+    print("\n--- 2.4.2 Truth Table - All 5 Testcases ---")
+    tables = []
+    for index, (infix, postfix) in enumerate(zip(TASK1_TESTCASES, postfixes), start=1):
+        table = Postfix2Truthtable(postfix)
+        tables.append(table)
+        print(f"\nTestcase {index}: {infix}")
+        print(format_truth_table(table))
+
+    # 2.4.3 DNF Results
+    print("\n--- 2.4.3 DNF Results ---")
+    for index, (infix, table) in enumerate(zip(TASK1_TESTCASES, tables), start=1):
+        print(f"Testcase {index}: {infix}")
+        print(f"DNF: {GetDNF(table)}")
+        print()
+
+    # 2.4.4 Equivalence Check
+    print("\n--- 2.4.4 Equivalence Check Results ---")
     for index, (left, right) in enumerate(EQUIVALENCE_TESTCASES, start=1):
         result = CheckEquivalence(left, right)
-        print(f"{index}. {left}  <=>  {right}: {result}")
+        print(f"Testcase {index}: {left}  <=>  {right}  =>  {result}")
 
 
 if __name__ == "__main__":
