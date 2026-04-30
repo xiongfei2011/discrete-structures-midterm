@@ -1,6 +1,7 @@
 """Menu-driven interface for the Discrete Structures midterm."""
 
 from task1_logic import run_task1_demo
+from task2_predicate import run_task2_demo
 
 
 def main() -> None:
@@ -15,7 +16,7 @@ def main() -> None:
         if choice == "1":
             run_task1_demo()
         elif choice == "2":
-            print("Task 2 has not been implemented yet.")
+            run_task2_demo()
         elif choice == "3":
             print("Task 3 has not been implemented yet.")
         elif choice == "0":

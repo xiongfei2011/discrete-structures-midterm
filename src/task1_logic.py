@@ -162,7 +162,7 @@ def Infix2Truthtable(infix: str) -> TruthTable:
     return Postfix2Truthtable(Infix2Postfix(infix))
 
 
-def GetDNF(truth_table: TruthTable) -> str:
+def GetDNF(truth_table: TruthTable) -> str: 
     """Return the Disjunctive Normal Form represented by a truth table."""
     terms: List[str] = []
     for assignment, result in truth_table.rows:
@@ -173,7 +173,7 @@ def GetDNF(truth_table: TruthTable) -> str:
             literals.append(variable if assignment[variable] else f"~{variable}")
         terms.append("(" + " & ".join(literals) + ")")
 
-    if not terms:
+    if not terms: 
         return "False"
     if len(terms) == 2 ** len(truth_table.variables):
         return "True"

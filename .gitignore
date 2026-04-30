@@ -1,0 +1,10 @@
+# Chặn Python bytecode
+__pycache__/
+*.pyc
+
+# Chặn các file cấu hình của VS Code (nếu bạn dùng)
+.vscode/
+
+# Chặn môi trường ảo (nếu có)
+venv/
+.venv/
