@@ -1,10 +1,3 @@
-"""Task 2 - Quantified reasoning over real-world data.
-
-This module creates a student-score dataset, cleans noisy/missing values, and
-evaluates predicate-logic statements using both naive loops and vectorized
-Pandas operations.
-"""
-
 from __future__ import annotations
 
 import csv
@@ -26,9 +19,8 @@ Student = Dict[str, object]
 
 
 def create_dataset(path: Path = DATA_PATH, record_count: int = 1000) -> Path:
-    """Create a deterministic CSV dataset with at least 5% noisy records."""
     path.parent.mkdir(parents=True, exist_ok=True)
-    rng = random.Random(2026) # Fixed seed for reproducibility
+    rng = random.Random(2026)
     first_names = [
         "An",
         "Binh",
@@ -61,10 +53,10 @@ def create_dataset(path: Path = DATA_PATH, record_count: int = 1000) -> Path:
     start_birth = date(2003, 1, 1)
 
     rows: List[Dict[str, object]] = []
-    for index in range(record_count): # Generate 1000 student records
+    for index in range(record_count):
         student_id = f"SV{index + 1:04d}"
         student_name = f"{rng.choice(last_names)} {rng.choice(first_names)}"
-        birth = start_birth + timedelta(days=rng.randint(0, 1460)) # Random birth date between 2003 and 2006
+        birth = start_birth + timedelta(days=rng.randint(0, 1460))
         rows.append(
             {
                 "StudentID": student_id,
@@ -76,10 +68,9 @@ def create_dataset(path: Path = DATA_PATH, record_count: int = 1000) -> Path:
             }
         )
 
-    # Corrupt 60 different records (6%) with missing or noisy values.
     noisy_indexes = rng.sample(range(record_count), 60)
     noisy_values = ["", "NULL", -3.5, 12.2, "abc"]
-    for position, row_index in enumerate(noisy_indexes): # Corrupt 60 records with various types of noise
+    for position, row_index in enumerate(noisy_indexes):
         subject = SUBJECTS[position % len(SUBJECTS)]
         rows[row_index][subject] = noisy_values[position % len(noisy_values)]
         if position % 10 == 0:
@@ -136,15 +127,15 @@ def load_dataframe(path: Path = DATA_PATH) -> pd.DataFrame:
     return df
 
 
-def is_passing(student: Student) -> bool: #Return True if the student has valid scores >= 5 in all subjects, False otherwise.
+def is_passing(student: Student) -> bool:
     return all(_has_score(student, subject) and student[subject] >= 5 for subject in SUBJECTS)
 
 
-def is_high_math(student: Student) -> bool: #Return True if the student has a valid Math score >= 9, False otherwise.
+def is_high_math(student: Student) -> bool:
     return _has_score(student, "Math") and student["Math"] >= 9
 
 
-def is_struggling(student: Student) -> bool: #Return True if the student has valid scores < 6 in both Math and CS, False otherwise.
+def is_struggling(student: Student) -> bool:
     return (
         _has_score(student, "Math")
         and _has_score(student, "CS")

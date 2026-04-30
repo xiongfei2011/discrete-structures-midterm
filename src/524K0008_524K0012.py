@@ -1,5 +1,3 @@
-"""Menu-driven interface for the Discrete Structures midterm."""
-
 from task1_logic import run_task1_demo
 from task2_predicate import run_task2_demo
 from task3_rsa import run_task3_demo

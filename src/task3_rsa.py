@@ -1,5 +1,3 @@
-"""Task 3 - RSA cryptosystem using cryptography and matplotlib."""
-
 from __future__ import annotations
 
 import csv
@@ -45,7 +43,6 @@ class RSAKeyPair:
 
     @property
     def max_plain_block_size(self) -> int:
-        # OAEP overhead with SHA-256 is 2 * hash_len + 2 bytes.
         return self.modulus_bytes - (2 * hashes.SHA256().digest_size) - 2
 
 
@@ -54,12 +51,12 @@ class CipherText:
     blocks: Tuple[bytes, ...]
 
 
-def generate_keypair(bits: int = 2048) -> RSAKeyPair: #Generates an RSA key pair with the specified number of bits.
+def generate_keypair(bits: int = 2048) -> RSAKeyPair:
     private_key = rsa.generate_private_key(public_exponent=65537, key_size=bits)
     return RSAKeyPair(private_key=private_key, public_key=private_key.public_key())
 
 
-def _oaep_padding() -> padding.OAEP: #Returns an OAEP padding object configured with MGF1 and SHA-256, which is used for RSA encryption and decryption.
+def _oaep_padding() -> padding.OAEP:
     return padding.OAEP(
         mgf=padding.MGF1(algorithm=hashes.SHA256()),
         algorithm=hashes.SHA256(),
@@ -67,7 +64,7 @@ def _oaep_padding() -> padding.OAEP: #Returns an OAEP padding object configured 
     )
 
 
-def _chunk_bytes(data: bytes, size: int) -> Iterable[bytes]: #Splits the input byte data into chunks of the specified size.
+def _chunk_bytes(data: bytes, size: int) -> Iterable[bytes]:
     for start in range(0, len(data), size):
         yield data[start : start + size]
 
@@ -94,7 +91,7 @@ def decrypt_message(ciphertext: CipherText, private_key: RSAPrivateKey) -> str:
     return b"".join(plain_chunks).decode("utf-8")
 
 
-def save_keys(keypair: RSAKeyPair) -> Tuple[Path, Path]: #Saves the RSA key pair to PEM files in the data directory and returns the paths to the private and public key files.
+def save_keys(keypair: RSAKeyPair) -> Tuple[Path, Path]:
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     private_bytes = keypair.private_key.private_bytes(
         encoding=serialization.Encoding.PEM,
